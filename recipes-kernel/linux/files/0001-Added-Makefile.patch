@@ -1,0 +1,25 @@
+From 33389a6aed3441b5aaeadc7860f695e7251df909 Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Wed, 28 Jun 2023 16:42:50 +0530
+Subject: [PATCH] Added Makefile
+
+---
+ arch/arm64/boot/dts/ti/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index adc62f1c1b3b..2c405058ca24 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -74,6 +74,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-am642-evm-nand.dtbo
+ 
+ dtb-$(CONFIG_ARCH_K3) += k3-am642-sk.dtb
+ 
++dtb-$(CONFIG_ARCH_K3) += sm2s-am625x-rev1.dtb
++
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62x-lp-sk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-skeleton.dtb
+-- 
+2.17.1
+
