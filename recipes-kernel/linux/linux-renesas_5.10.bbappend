@@ -1,7 +1,7 @@
 # List of kernel patches
 
 
-KERVER = "linux-renesas-staging"
+KERVER = "linux-renesas"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${KERVER}:"
 
