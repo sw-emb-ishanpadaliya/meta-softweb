@@ -1,0 +1,97 @@
+From 3867a33e9ca9f077b68f54feb3367ccfeebf247a Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Tue, 6 Jun 2023 15:35:52 +0530
+Subject: [PATCH] sm2s-rzg2ul: Added qspi support
+
+Signed-off-by: Anil Patel <anil.patel@softwebsolutions.com>
+---
+ .../renesas/sm2s_rzg2ul-smarc-display.dtsi    | 48 +++----------------
+ 1 file changed, 7 insertions(+), 41 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+index 1615e1c429fa..d813415d810c 100644
+--- a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
++++ b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+@@ -7,6 +7,9 @@
+ 
+ #include <dt-bindings/pinctrl/rzg2l-pinctrl.h>
+ #include <dt-bindings/gpio/gpio.h>
++#include "rzg2ul-smarc-som.dtsi"
++#include "rzg2ul-smarc-pinfunction.dtsi"
++#include "rz-smarc-common.dtsi"
+ 
+ /*
+  * If Display is enabled then SW_DISP_EN should be 1 otherwise 0.
+@@ -587,49 +590,12 @@
+ };
+ 
+ 
++/*
+ &spi0 {
+ 	pinctrl-0 = <&spi0_pins>;
+ 	pinctrl-names = "default";
+ 	status = "okay";
+-	/*flash@0 {
+-		compatible="winbond,w25q64dw","jedec,spi-nor";
+-		reg = <0>;
+-		m25p,fast-read;
+-		spi-max-frequency = <50000000>;
+-		spi-tx-bus-width = <1>;
+-		spi-rx-bus-width = <1>;
+-		partitions {
+-			compatible="fixed-partitions";
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			partition@000000 {
+-				label = "spi0_bl2";
+-				reg = <0x00000000 0x0001D200>;
+-				read-only;
+-			};
+-			partition@01D200 {
+-				label = "spi0_fip";
+-				reg = <0x0001D200 0x001C2E00>;
+-				read-only;
+-			};
+-			partition@1E0000 {
+-				label = "spi0_env";
+-				reg = <0x001E0000 0x00020000>;
+-				read-only;
+-			};
+-			partition@200000 {
+-				label = "spi0_test-area";
+-				reg = <0x00200000 0x00E00000>;
+-			};
+-		};
+-	};*/
+-
+-	spidev@0x00 {
+-		compatible="winbond,w25q64dw","jedec,spi-nor";
+-		spi-max-frequency = <100000>;
+-		reg = <0>;
+-	};
+-};
++};*/
+ 
+ 
+ &spi2 {
+@@ -946,7 +912,7 @@
+ &sbc {
+ 	status = "okay";
+ 
+-	flash@0 {
++	/*flash@0 {
+ 		compatible = "micron,mt25qu512a", "jedec,spi-nor";
+ 		reg = <0>;
+ 		m25p,fast-read;
+@@ -979,7 +945,7 @@
+ 				reg = <0x00200000 0x00E00000>;
+ 			};
+ 		};
+-	};
++	};*/
+ };
+ 
+ 
+-- 
+2.17.1
+

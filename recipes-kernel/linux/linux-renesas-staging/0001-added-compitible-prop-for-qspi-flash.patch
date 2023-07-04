@@ -1,0 +1,25 @@
+From b512c1bef43789c7402883ab2a5e890cb2e91392 Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Wed, 14 Jun 2023 17:08:51 +0530
+Subject: [PATCH] added compitible prop for qspi flash.
+
+---
+ arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+index bf971ecefd6a..b53f5657d4aa 100644
+--- a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
++++ b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+@@ -918,7 +918,7 @@
+ 	status = "okay";
+ 
+ 	flash@0 {
+-		compatible = "micron,mt25qu512a", "jedec,spi-nor";
++		compatible = "macronix,mx25l4005a", "macronix,mx25l1606e", "macronix,mx25l6405d", "macronix,mx25l12805d", "macronix,mx25l25635e", "jedec,spi-nor";
+ 		reg = <0>;
+ 		m25p,fast-read;
+ 		spi-max-frequency = <50000000>;
+-- 
+2.17.1
+

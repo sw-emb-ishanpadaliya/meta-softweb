@@ -1,0 +1,37 @@
+From 8333b673210c764a676acde6a8cd6bf03862c5a3 Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Tue, 20 Jun 2023 10:25:11 +0530
+Subject: [PATCH] debug qspi 2
+
+---
+ arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+index c68e2ab3d..940c29069 100644
+--- a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
++++ b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+@@ -917,10 +917,10 @@
+ 	status = "okay";
+ 
+ 	flash@0 {
+-		compatible = "atmel,at25sl321", "jedec,spi-nor";
++		compatible = "atmel,at25sl321", "micron,mt25qu512a", "jedec,spi-nor";
+ 		reg = <0>;
+ 		m25p,fast-read;
+-		spi-max-frequency = <50000000>;
++		spi-max-frequency = <5000000>;
+ 		spi-tx-bus-width = <1>;
+ 		spi-rx-bus-width = <4>;
+ 
+@@ -1028,6 +1028,6 @@
+         clocks = <&cpg CPG_MOD R9A07G043_MTU_X_MCK_MTU3>;
+         clock-names = "fck";
+ 	/*pwm-params = <MTU_PWM_NORMAL 0 50>;*/
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+-- 
+2.17.1
+

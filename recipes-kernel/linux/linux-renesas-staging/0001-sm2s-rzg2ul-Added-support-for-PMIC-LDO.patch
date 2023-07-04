@@ -1,0 +1,65 @@
+From 4713f25cfcd82b9c01c9e88aca418e9bf851185b Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Tue, 13 Jun 2023 18:40:29 +0530
+Subject: [PATCH] sm2s-rzg2ul: Added support for PMIC LDO
+
+Signed-off-by: Anil Patel <anil.patel@softwebsolutions.com>
+---
+ .../renesas/sm2s_rzg2ul-smarc-display.dtsi    | 30 ++++++++++++++++---
+ 1 file changed, 26 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+index 2d0dd4eaca56..a062130f5c5b 100644
+--- a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
++++ b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+@@ -445,21 +445,43 @@
+                         dcdc2:DCDC2 {
+                                 regulator-name = "VCC_ARM_0V9";
+                                 regulator-always-on;
+-                                regulator-min-microvolt = <900000>;
++                                regulator-min-microvolt = <3000000>;
+                                 regulator-max-microvolt = <3300000>;
+                         };
+-                        ldo1:LDO1 {
+-                                regulator-name = "VCC_PHY_0V9";
++
++                        dcdc3:DCDC3 {
++                                regulator-name = "VCC_DDR_1V2";
+                                 regulator-always-on;
+                                 regulator-min-microvolt = <900000>;
++                                regulator-max-microvolt = <1200000>;
++                        };
++
++                        dcdc4:DCDC4 {
++                                regulator-name = "VCC_SYS_1V8";
++                                regulator-always-on;
++                                regulator-min-microvolt = <1600000>;
+                                 regulator-max-microvolt = <1800000>;
+                         };
++
++                        ldo1:LDO1 {
++                                regulator-name = "VCC_PHY_2V5";
++                                regulator-always-on;
++                                regulator-min-microvolt = <2000000>;
++                                regulator-max-microvolt = <2500000>;
++                        };
+                         ldo2:LDO2 {
+-                                regulator-name = "VCC_LDO12_1V2";
++                                regulator-name = "VCC_LDO2_1V2";
+                                 regulator-always-on;
+                                 regulator-min-microvolt = <1000000>;
+                                 regulator-max-microvolt = <1800000>;
+                         };
++			ldo3:LDO3 {
++                                regulator-name = "VCC_LDO3_1V0";
++                                regulator-always-on;
++                                regulator-min-microvolt = <900000>;
++                                regulator-max-microvolt = <1000000>;
++                        };
++
+ 		};
+ 	};
+ 
+-- 
+2.17.1
+

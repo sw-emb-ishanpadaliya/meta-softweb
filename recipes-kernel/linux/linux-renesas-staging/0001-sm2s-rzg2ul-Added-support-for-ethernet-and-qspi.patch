@@ -1,0 +1,195 @@
+From 0bb6f5f1847d28b6228fa9f7467a55692183926a Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Tue, 13 Jun 2023 15:57:49 +0530
+Subject: [PATCH] sm2s-rzg2ul: Added support for ethernet and qspi
+
+Signed-off-by: Anil Patel <anil.patel@softwebsolutions.com>
+---
+ .../renesas/sm2s_rzg2ul-smarc-display.dtsi    | 105 ++++++------------
+ 1 file changed, 33 insertions(+), 72 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+index 8d2199f1e3b1..8d02ccc520d6 100644
+--- a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
++++ b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+@@ -7,6 +7,7 @@
+ 
+ #include <dt-bindings/pinctrl/rzg2l-pinctrl.h>
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/net/ti-dp83867.h>
+ 
+ /*
+  * If Display is enabled then SW_DISP_EN should be 1 otherwise 0.
+@@ -242,6 +243,13 @@
+ 		regulator-always-on;
+ 	};
+ 
++        gpio-eth0-pwr-en-hog {
++                gpio-hog;
++                gpios = <&exp2 3 GPIO_ACTIVE_HIGH>;
++                output-high;
++                line-name = "gpio_eth0_pwr_en";
++        };
++
+ 	panel {
+                 compatible = "panel-lvds";
+                 width-mm = <154>;
+@@ -332,20 +340,23 @@
+ };
+ 
+ &eth0 {
+-	pinctrl-0 = <&ether0_pins>;
++	pinctrl-0 = <&eth0_pins>;
+ 	pinctrl-names = "default";
+ 	phy-handle = <&phy0>;
+-	phy-mode = "rgmii-rxid";
++	phy-mode = "rgmii-id";
+ 	status = "okay";
+ 
+ 	phy0: ethernet-phy@0 {
++		compatible = "ethernet-phy-ieee802.3-c22";
+ 		reg = <0>;
+-                ti,rx-internal-delay = <0x8>;
+-                ti,fifo-depth = <0x01>;
+-                ti,min-output-impedance;
++                ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
++                ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
++                ti,fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
++		ti,min-output-impedance;
+ 	};
+ };
+ 
++
+ &hsusb {
+ 	dr_mode = "otg";
+ 	status = "okay";
+@@ -576,38 +587,6 @@
+ 	pinctrl-0 = <&spi0_pins>;
+ 	pinctrl-names = "default";
+ 	status = "okay";
+-	/*flash@0 {
+-		compatible="winbond,w25q64dw","jedec,spi-nor";
+-		reg = <0>;
+-		m25p,fast-read;
+-		spi-max-frequency = <50000000>;
+-		spi-tx-bus-width = <1>;
+-		spi-rx-bus-width = <1>;
+-		partitions {
+-			compatible="fixed-partitions";
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			partition@000000 {
+-				label = "spi0_bl2";
+-				reg = <0x00000000 0x0001D200>;
+-				read-only;
+-			};
+-			partition@01D200 {
+-				label = "spi0_fip";
+-				reg = <0x0001D200 0x001C2E00>;
+-				read-only;
+-			};
+-			partition@1E0000 {
+-				label = "spi0_env";
+-				reg = <0x001E0000 0x00020000>;
+-				read-only;
+-			};
+-			partition@200000 {
+-				label = "spi0_test-area";
+-				reg = <0x00200000 0x00E00000>;
+-			};
+-		};
+-	};*/
+ 
+ 	spidev@0x00 {
+ 		compatible="winbond,w25q64dw","jedec,spi-nor";
+@@ -621,38 +600,6 @@
+         pinctrl-0 = <&spi2_pins>;
+         pinctrl-names = "default";
+         status = "okay";
+-        /*flash@0 {
+-                compatible="winbond,w25q64dw","jedec,spi-nor";
+-                reg = <0>;
+-                m25p,fast-read;
+-                spi-max-frequency = <50000000>;
+-                spi-tx-bus-width = <1>;
+-                spi-rx-bus-width = <1>;
+-                partitions {
+-                        compatible="fixed-partitions";
+-                        #address-cells = <1>;
+-                        #size-cells = <1>;
+-                        partition@000000 {
+-                                label = "spi0_bl2";
+-                                reg = <0x00000000 0x0001D200>;
+-                                read-only;
+-                        };
+-                        partition@01D200 {
+-                                label = "spi0_fip";
+-                                reg = <0x0001D200 0x001C2E00>;
+-                                read-only;
+-                        };
+-                        partition@1E0000 {
+-                                label = "spi0_env";
+-                                reg = <0x001E0000 0x00020000>;
+-                                read-only;
+-                        };
+-                        partition@200000 {
+-                                label = "spi0_test-area";
+-                                reg = <0x00200000 0x00E00000>;
+-                        };
+-                };
+-        };*/
+ 
+         spidev@0x00 {
+                 compatible="winbond,w25q64dw","jedec,spi-nor";
+@@ -730,7 +677,7 @@
+ 			 <RZG2L_PORT_PINMUX(6, 2, 3)>; /* RX */
+ 	};
+ 
+-	ether0_pins: eth0 {
++	eth0_pins: eth0 {
+ 		pinmux = 
+ 			 <RZG2L_PORT_PINMUX(4, 3, 1)>, /* ET0_MDC */
+ 			 <RZG2L_PORT_PINMUX(4, 4, 1)>, /* ET0_MDIO */
+@@ -888,6 +835,18 @@
+ 		                 <RZG2L_PORT_PINMUX(7, 2, 3)>, /*RSPI2_MISO*/
+ 		                 <RZG2L_PORT_PINMUX(7, 3, 3)>; /*RSPI2_SSL*/
+ 	};
++
++	qspi0_pins: qspi0 {
++		qspi0-data {
++			pins = "QSPI0_IO0", "QSPI0_IO1", "QSPI0_IO2", "QSPI0_IO3";
++			power-source = <1800>;
++		};
++
++		qspi0-ctrl {
++			pins = "QSPI0_SPCLK", "QSPI0_SSL", "QSPI_RESET#";
++			power-source = <1800>;
++		};
++	};
+ 	
+ 	scif0_pins: scif0 {
+ 			pinmux = <RZG2L_PORT_PINMUX(6, 4, 6)>, /* TxD */
+@@ -928,7 +887,11 @@
+ 
+ };
+ 
++
+ &sbc {
++	pinctrl-0 = <&qspi0_pins>;
++	pinctrl-names = "default";
++
+ 	status = "okay";
+ 
+ 	flash@0 {
+@@ -968,8 +931,6 @@
+ };
+ 
+ 
+-
+-
+ //SD Card
+ &sdhi0 {
+ 	pinctrl-0 = <&sdhi0_pins>;
+-- 
+2.17.1
+

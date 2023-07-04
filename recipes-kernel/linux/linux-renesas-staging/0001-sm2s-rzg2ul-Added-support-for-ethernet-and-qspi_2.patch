@@ -1,0 +1,41 @@
+From 99670154862ef63fbd94185b18911a62d8963849 Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Tue, 13 Jun 2023 15:09:25 +0530
+Subject: [PATCH] sm2s-rzg2ul: Added support for ethernet and qspi
+
+Signed-off-by: Anil Patel <anil.patel@softwebsolutions.com>
+---
+ .../boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi    | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+index 290fe479d1bc..848bcf855de7 100644
+--- a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
++++ b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+@@ -243,6 +243,14 @@
+ 		regulator-always-on;
+ 	};
+ 
++	gpio-eth0-pwr-en-hog {
++                gpio-hog;
++                gpios = <&exp2 3 GPIO_ACTIVE_HIGH>;
++                output-high;
++                line-name = "gpio_eth0_pwr_en";
++        };
++
++
+ 	panel {
+                 compatible = "panel-lvds";
+                 width-mm = <154>;
+@@ -346,8 +354,6 @@
+                 ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
+                 ti,fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
+ 	        ti,min-output-impedance;
+-
+-		gpio = <&exp2 3 GPIO_ACTIVE_HIGH>;
+ 	};
+ };
+ 
+-- 
+2.17.1
+

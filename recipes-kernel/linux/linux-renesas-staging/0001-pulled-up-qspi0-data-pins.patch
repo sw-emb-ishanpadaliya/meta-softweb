@@ -1,0 +1,24 @@
+From 74cce4d1e631e42835114fa44cb373c2ca4528cd Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Fri, 23 Jun 2023 09:57:08 +0530
+Subject: [PATCH] pulled up qspi0 data pins.
+
+---
+ arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+index d682398ce..a5a8d29c7 100644
+--- a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
++++ b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+@@ -836,6 +836,7 @@
+ 		qspi0-data {
+ 			pins = "QSPI0_IO0", "QSPI0_IO1", "QSPI0_IO2", "QSPI0_IO3";
+ 			power-source = <3300>;
++			bias-pull-up;
+ 		};
+ 
+ 		qspi0-ctrl {
+-- 
+2.17.1
+

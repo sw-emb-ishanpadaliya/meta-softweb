@@ -1,0 +1,48 @@
+From c6b3b67e0546f96188d3bc84dd5578d1ec73d25c Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Mon, 26 Jun 2023 17:15:11 +0530
+Subject: [PATCH] gpio-expander-debug-2.patch
+
+Signed-off-by: Anil Patel <anil.patel@softwebsolutions.com>
+---
+ .../boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi   | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+index 75c052247..98adf33c0 100644
+--- a/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
++++ b/arch/arm64/boot/dts/renesas/sm2s_rzg2ul-smarc-display.dtsi
+@@ -530,6 +530,13 @@
+                 gpio-controller;
+                 #gpio-cells = <2>;
+                 interrupt-parent = <&pinctrl>;
++		
++		test-en-hog{
++                                gpio-hog;
++                                gpios = <16 GPIO_ACTIVE_HIGH >;
++                                output-low;
++                                line-name = "test-en";
++                        };  
+         };
+ 
+         exp2: gpio@23 {
+@@ -541,14 +548,14 @@
+ 		
+ 		wifi-en-hog {
+         			gpio-hog;
+-        			gpios = <12 GPIO_ACTIVE_HIGH>;
++        			gpios = <11 GPIO_ACTIVE_HIGH>;
+         			output-high;
+         			line-name = "wifi_en";
+ 			};
+ 
+ 		bt-en-hog{
+         			gpio-hog;
+-        			gpios = <11 GPIO_ACTIVE_HIGH>;
++        			gpios = <10 GPIO_ACTIVE_HIGH>;
+         			output-high;
+         			line-name = "bt_en";
+ 			};	
+-- 
+2.17.1
+
