@@ -1,0 +1,39 @@
+From 22d89dc798fd54b2c9de2d7ed5ef947e7acb0c3d Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Tue, 4 Jul 2023 14:32:45 +0530
+Subject: [PATCH] debug wifi turn of 'MCU_OSPI0_CSn1'
+
+---
+ arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi  | 2 +-
+ arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi b/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi
+index 66644f48d346..6c5aa8897429 100644
+--- a/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi
+@@ -101,7 +101,7 @@
+ 			J721E_WKUP_IOPAD(0x0, PIN_OUTPUT, 1) /* (B6) MCU_OSPI0_CLK.MCU_HYPERBUS0_CK */
+ 			J721E_WKUP_IOPAD(0x4, PIN_OUTPUT, 1) /* (C8) MCU_OSPI0_LBCLKO.MCU_HYPERBUS0_CKn */
+ 			J721E_WKUP_IOPAD(0x2c, PIN_OUTPUT, 1) /* (D6) MCU_OSPI0_CSn0.MCU_HYPERBUS0_CSn0 */
+-			J721E_WKUP_IOPAD(0x30, PIN_OUTPUT, 1) /* (D7) MCU_OSPI0_CSn1.MCU_HYPERBUS0_RESETn */
++		/*	J721E_WKUP_IOPAD(0x30, PIN_OUTPUT, 1) */ /* (D7) MCU_OSPI0_CSn1.MCU_HYPERBUS0_RESETn */
+ 			J721E_WKUP_IOPAD(0x8, PIN_INPUT, 1) /* (B7) MCU_OSPI0_DQS.MCU_HYPERBUS0_RWDS */
+ 			J721E_WKUP_IOPAD(0xc, PIN_INPUT, 1) /* (D8) MCU_OSPI0_D0.MCU_HYPERBUS0_DQ0 */
+ 			J721E_WKUP_IOPAD(0x10, PIN_INPUT, 1) /* (C7) MCU_OSPI0_D1.MCU_HYPERBUS0_DQ1 */
+diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi b/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi
+index db1219b2bbff..7e26d50e3410 100644
+--- a/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi
+@@ -182,7 +182,7 @@
+ 		pinctrl-single,pins = <
+ 			J721S2_WKUP_IOPAD(0x000, PIN_OUTPUT, 0) /* (D19) MCU_OSPI0_CLK */
+ 			J721S2_WKUP_IOPAD(0x02c, PIN_OUTPUT, 0) /* (F15) MCU_OSPI0_CSn0 */
+-			J721S2_WKUP_IOPAD(0x030, PIN_OUTPUT, 0) /* (G17) MCU_OSPI0_CSn1 */
++		/*	J721S2_WKUP_IOPAD(0x030, PIN_OUTPUT, 0)*/ /* (G17) MCU_OSPI0_CSn1 */
+ 			J721S2_WKUP_IOPAD(0x038, PIN_OUTPUT, 0) /* (F14) MCU_OSPI0_CSn2 */
+ 			J721S2_WKUP_IOPAD(0x03c, PIN_OUTPUT, 0) /* (F17) MCU_OSPI0_CSn3 */
+ 			J721S2_WKUP_IOPAD(0x00c, PIN_INPUT, 0) /* (C19) MCU_OSPI0_D0 */
+-- 
+2.17.1
+

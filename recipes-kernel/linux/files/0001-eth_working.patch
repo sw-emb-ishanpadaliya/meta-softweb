@@ -1,0 +1,24 @@
+From 6f501bc5b05bb3ca70213d75c036a5f89ad4828a Mon Sep 17 00:00:00 2001
+From: Anil Patel <anil.patel@softwebsolutions.com>
+Date: Thu, 27 Apr 2023 12:11:42 +0530
+Subject: [PATCH] eth_working
+
+---
+ drivers/net/phy/dp83867.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
+index cf867362831f..fcab36455176 100644
+--- a/drivers/net/phy/dp83867.c
++++ b/drivers/net/phy/dp83867.c
+@@ -773,6 +773,7 @@ static int dp83867_config_init(struct phy_device *phydev)
+ 	if (phy_interrupt_is_valid(phydev))
+ 		val |= DP83867_CFG3_INT_OE;
+ 
++	val |= DP83867_CFG3_INT_OE;
+ 	val |= DP83867_CFG3_ROBUST_AUTO_MDIX;
+ 	phy_write(phydev, DP83867_CFG3, val);
+ 
+-- 
+2.17.1
+
